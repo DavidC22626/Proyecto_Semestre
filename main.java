@@ -1,38 +1,30 @@
-package mvc;
-import controlador.Controlador;
-import modelo.Pregunta;
-import vista.Preguntas;
+package modelo;
 
-public class Main {
+public class main {
+    
+    static ListaPreguntas objList = new ListaPreguntas();
+
     public static void main(String[] args){
         
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+        objList.llenarBase();
+        for(int i = 0; i < ListaPreguntas.dataBase.cantidadDatos(); i++){
+            
+            if((ListaPreguntas.dataBase.obtener(i).getTipoPregunta()).equals("abierta")){
+                
+                System.out.println(ListaPreguntas.dataBase.obtener(i).getEnunciado() + "\n" +
+                                   ListaPreguntas.dataBase.obtener(i).getIndicacion() + "\n" +
+                                   ListaPreguntas.dataBase.obtener(i).getRespuestaCorrecta());
+                
+            } else if((ListaPreguntas.dataBase.obtener(i).getTipoPregunta()).equals("multiple")) {
+                
+                System.out.println(ListaPreguntas.dataBase.obtener(i).getEnunciado() + "\n" +
+                                   ListaPreguntas.dataBase.obtener(i).getRespuestaMultiple()[0] + "\n" +
+                                   ListaPreguntas.dataBase.obtener(i).getRespuestaMultiple()[1] + "\n" +
+                                   ListaPreguntas.dataBase.obtener(i).getRespuestaMultiple()[2] + "\n" +
+                                   ListaPreguntas.dataBase.obtener(i).getRespuestaMultiple()[3] + "\n" +
+                                   ListaPreguntas.dataBase.obtener(i).getRespuestaCorrecta());
+                
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VistaPrueba.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VistaPrueba.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VistaPrueba.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VistaPrueba.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        
-        Pregunta modeloPregunta = new Pregunta();
-        Preguntas vistaPregunta = new Preguntas();
-        Controlador controladorPregunta = new Controlador(modeloPregunta, vistaPregunta);
-        
-        controladorPregunta.iniciarPregunta();
-        vistaPregunta.setVisible(true);
     }
 }
